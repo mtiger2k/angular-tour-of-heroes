@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class HeroService {
 
-  private heroesUrl = 'api/heroes';  // URL to web api
+  private heroesUrl = 'http://localhost:8080/heroes';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -23,8 +23,9 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes (): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
+    return this.http.get<any>(this.heroesUrl)
       .pipe(
+        map((json) => json._embedded.heroes),
         tap(heroes => this.log(`fetched heroes`)),
         catchError(this.handleError('getHeroes', []))
       );
@@ -59,7 +60,8 @@ export class HeroService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
+    return this.http.get<any>(`http://localhost:8080/heroes/search/findByName?name=${term}`).pipe(
+      map((json) => json._embedded.heroes),
       tap(_ => this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
