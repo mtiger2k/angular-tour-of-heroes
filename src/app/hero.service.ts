@@ -46,7 +46,7 @@ export class HeroService {
   /** GET hero by id. Return `undefined` when id not found */
   getHeroNo404<Data>(id: number): Observable<Hero> {
     const url = `${this.heroesUrl}/?id=${id}`;
-    return this.http.get<Hero[]>(url)
+    return this.http.get<Hero[]>(url, {headers: this.getHeaders()})
       .pipe(
         map(heroes => heroes[0]), // returns a {0|1} element array
         tap(h => {
@@ -60,7 +60,7 @@ export class HeroService {
   /** GET hero by id. Will 404 if id not found */
   getHero(id: number): Observable<Hero> {
     const url = `${this.heroesUrl}/${id}`;
-    return this.http.get<Hero>(url).pipe(
+    return this.http.get<Hero>(url, {headers: this.getHeaders()}).pipe(
       tap(_ => this.log(`fetched hero id=${id}`)),
       catchError(this.handleError<Hero>(`getHero id=${id}`))
     );
@@ -72,7 +72,7 @@ export class HeroService {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<any>(`http://localhost:8080/heroes/search/findByName?name=${term}`).pipe(
+    return this.http.get<any>(`http://localhost:8080/heroes/search/findByName?name=${term}`, {headers: this.getHeaders()}).pipe(
       map((json) => json._embedded.heroes),
       tap(_ => this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))

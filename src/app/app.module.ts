@@ -20,6 +20,7 @@ import { MessagesComponent }    from './messages/messages.component';
 import { HomeComponent }        from './home.component';
 import { LoginComponent } from './login.component';
 import { AuthenticationService } from './authentication.service';
+import { CanActivateAuthGuard } from './can-activate.authguard';
 
 @NgModule({
   imports: [
@@ -45,7 +46,7 @@ import { AuthenticationService } from './authentication.service';
     HomeComponent,
     LoginComponent,
   ],
-  providers: [ HeroService, MessageService, AuthenticationService ],
+  providers: [ HeroService, MessageService, AuthenticationService, CanActivateAuthGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
