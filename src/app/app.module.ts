@@ -2,7 +2,6 @@ import { NgModule }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClientModule }    from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 
 //import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 //import { InMemoryDataService }  from './in-memory-data.service';
@@ -28,7 +27,7 @@ import { CanActivateAuthGuard } from './can-activate.authguard';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    HttpModule,
+
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
